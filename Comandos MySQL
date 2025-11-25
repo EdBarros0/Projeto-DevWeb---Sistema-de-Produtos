@@ -1,0 +1,34 @@
+CREATE DATABASE SisWeb;
+///////////////////////
+
+USE SisWeb;
+
+///////////////////////
+
+CREATE TABLE Funcionario (
+     Id_f int(11) NOT NULL AUTO_INCREMENT,
+     Nome varchar(45) NOT NULL,
+     Email varchar(50) NOT NULL UNIQUE,
+     Senha varchar(20) NOT NULL,
+     Telefone varchar(20) NOT NULL,
+     PRIMARY KEY(Id_f));
+
+/////////////////////////
+
+CREATE TABLE Produto (
+    Id_p int(11) NOT NULL AUTO_INCREMENT,
+     Nome varchar(45) NOT NULL,
+     Validade DATE,
+     Valor_Custo FLOAT NOT NULL,
+     Valor_Venda FLOAT NOT NULL,
+     PRIMARY KEY(Id_p));
+
+//////////////////////////
+
+CREATE TABLE Func_Prod (
+     Id_f int(11) NOT NULL,
+     Id_p int(11) NOT NULL,
+     primary key(Id_f,Id_p),
+     FOREIGN KEY(Id_f) REFERENCES Funcionario(Id_f),
+     FOREIGN KEY(Id_p) REFERENCES Produto(Id_p)
+     );
