@@ -25,13 +25,13 @@
 
             echo json_encode(["mensagem" => "Produto cadastrado e relação criada!"]);
     } else {
-        echo "Produto inserido, mas falhou ao criar relação!";
+        echo  json_encode(["Mensagem" => "Produto inserido, mas falhou ao criar relação!"]);
         }
        
             
     }
     else{
-        echo "Erro não foi possivel cadastrar";
+        echo json_encode(["Erro" => "Não foi possivel cadastrar o Produto!"]);
     }
                 
     mysqli_close($con);
