@@ -1,14 +1,18 @@
 <?php
     require_once 'conexao.php';
 
+    session_start();
+
+    $id_f = $_SESSION['Id_f'] ?? null;
     $nome = $_POST['Nome'];
     $validade =$_POST['Validade'];
     $valor_c =$_POST['Valor_Custo'];
     $valor_v = $_POST['Valor_Venda'];
-    $id_f = $_POST['Id_f'];
+    
+
 
     
-    if(empty($nome) || empty($valor_c) || empty($valor_v) || empty($id_f)){
+    if(empty($nome) || empty($valor_c) || empty($valor_v)){
         echo json_encode(["erro" => "Preencha os campos necessários!"]);
     exit;
     }
