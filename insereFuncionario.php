@@ -18,7 +18,7 @@
             
     }
     else{
-        echo "Erro não foi possivel cadastrar o Funcionario";
+        echo json_encode(["Erro" => "Não foi possivel cadastrar o Funcionario!"]);
     }
                 
     mysqli_close($con);
