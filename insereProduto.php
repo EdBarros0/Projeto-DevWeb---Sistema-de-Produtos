@@ -7,6 +7,12 @@
     $valor_v = $_POST['Valor_Venda'];
     $id_f = $_POST['Id_f'];
 
+    
+    if(empty($nome) || empty($valor_c) || empty($valor_v) || empty($id_f)){
+        echo json_encode(["erro" => "Preencha os campos necessários!"]);
+    exit;
+    }
+    
     $sql = "INSERT INTO Produto (Nome, Validade, Valor_Custo, Valor_Venda) VALUES ('$nome','$validade','$valor_c','$valor_v')";
 
     if(mysqli_query($con, $sql)){
