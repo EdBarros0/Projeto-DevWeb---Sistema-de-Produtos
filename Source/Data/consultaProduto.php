@@ -17,7 +17,7 @@
         }
 
 
-		$sql = "SELECT Id_p, Nome, Valor_Custo, Valor_Venda, Quantidade FROM Produto WHERE Nome LIKE '%$nome%'";
+		$sql = "SELECT Id_p, Nome, Valor_Custo, Valor_Venda, Quantidade, Id_f FROM Produto WHERE Nome LIKE '%$nome%'";
 
 		
 		$result = mysqli_query($con, $sql);
