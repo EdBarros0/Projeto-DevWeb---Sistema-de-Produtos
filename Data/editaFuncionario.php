@@ -1,32 +1,32 @@
 <?php
+    session_start();
+    require_once 'conexao.php';
 
-require_once 'conexao.php';
+    $id_f = $_SESSION['Id_f'] ?? null;
 
-$idfuncionario = $_POST['Id_f'];
-$nome = $_POST['Nome'];
-$email = $_POST['Email'];
-$senha = $_POST['Senha'];
-$telefone = $_POST['Telefone'];
-
-if(empty($idfuncionario)){
-    echo json_encode(["Erro" => "Diga o id do funcionário."]);
+    if ($id_f === null) {
+        echo json_encode(["Erro" => "Usuário não logado."]);
     exit;
-}
+    }
 
-$idfuncionario = intval($idfuncionario);
+    $nome = $_POST['Nome'];
+    $email = $_POST['Email'];
+    $senha = $_POST['Senha'];
+    $telefone = $_POST['Telefone'];
 
-$sql = "UPDATE Funcionario  
-SET Nome = '$nome', 
-Email = '$email',
-Senha = '$senha',
-Telefone = '$telefone'
-WHERE Id_f = '$idfuncionario'";
 
-if(mysqli_query($con,$sql)){
-    echo json_encode(["Sucesso" => "Funcionario atualizado com sucesso!"]);
-} else {
-    echo json_encode(["Erro" => "Erro na Atualização!"]);
-}
+    $sql = "UPDATE Funcionario  
+    SET Nome = '$nome', 
+    Email = '$email',
+    Senha = '$senha',
+    Telefone = '$telefone'
+    WHERE Id_f = '$id_f'";
 
-mysqli_close($con);
+    if(mysqli_query($con,$sql)){
+        echo json_encode(["Sucesso" => "Campos atualizados com sucesso!"]);
+    } else {
+        echo json_encode(["Erro" => "Erro na Atualização!"]);
+    }
+
+    mysqli_close($con);
 ?>
