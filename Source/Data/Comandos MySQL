@@ -22,14 +22,10 @@ CREATE TABLE Produto (
      Valor_Custo FLOAT NOT NULL,
      Valor_Venda FLOAT NOT NULL,
      Quantidade int(11) NOT NULL,
+     Id_f int(11) NOT NULL,
+     FOREIGN KEY(Id_f) REFERENCES Funcionario(Id_f),
      PRIMARY KEY(Id_p));
 
 //////////////////////////
 
-CREATE TABLE Func_Prod (
-     Id_f int(11) NOT NULL,
-     Id_p int(11) NOT NULL,
-     primary key(Id_f,Id_p),
-     FOREIGN KEY(Id_f) REFERENCES Funcionario(Id_f),
-     FOREIGN KEY(Id_p) REFERENCES Produto(Id_p)
-     );
+
