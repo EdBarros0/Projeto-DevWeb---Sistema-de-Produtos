@@ -18,7 +18,6 @@ CREATE TABLE Funcionario (
 CREATE TABLE Produto (
     Id_p int(11) NOT NULL AUTO_INCREMENT,
      Nome varchar(45) NOT NULL,
-     Validade DATE,
      Valor_Custo FLOAT NOT NULL,
      Valor_Venda FLOAT NOT NULL,
      PRIMARY KEY(Id_p));
