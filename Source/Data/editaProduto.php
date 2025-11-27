@@ -44,14 +44,12 @@
     SET Nome = '$nome',
     Valor_Custo = '$valor_c',
     Valor_Venda = '$valor_v',
-    Quantidade = '$quantidade'
+    Quantidade = '$quantidade',
+    Id_f = '$id_f'
     WHERE Id_p = '$id_p'";
 
-    $sql2 = "UPDATE Func_Prod
-    SET Id_f = '$id_f'
-    WHERE Id_p = '$id_p'";
 
-    if (mysqli_query($con, $sql) && mysqli_query($con, $sql2)) {
+    if (mysqli_query($con, $sql)) {
         echo json_encode(["Sucesso" => "Produto atualizado com sucesso!"]);
     } else {
         echo json_encode(["Erro" => "Erro na atualização!"]);
