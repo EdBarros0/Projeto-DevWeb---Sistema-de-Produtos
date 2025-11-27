@@ -24,26 +24,17 @@
     }
 
     
-    $sql = "INSERT INTO Produto (Nome, Valor_Custo, Valor_Venda, Quantidade) VALUES ('$nome','$valor_c','$valor_v','$quantidade')";
+    $sql = "INSERT INTO Produto (Nome, Valor_Custo, Valor_Venda, Quantidade, Id_f) VALUES ('$nome','$valor_c','$valor_v','$quantidade','$id_f')";
 
     if(mysqli_query($con, $sql)){
 
-        $id_p = mysqli_insert_id($con);
-                    
-        $sql2 = "INSERT INTO Func_Prod (Id_f, Id_p) VALUES ('$id_f','$id_p')";
-
-        if(mysqli_query($con,$sql2)){
-
-            echo json_encode(["mensagem" => "Produto cadastrado e relação criada!"]);
+        echo json_encode(["mensagem" => "Produto cadastrado e relação criada!"]);
         } else {
-            echo  json_encode(["Mensagem" => "Produto inserido, mas falhou ao criar relação!"]);
+            echo json_encode(["Erro" => "Não foi possivel cadastrar o Produto!"]);
         }
-       
+          
             
-    }
-    else{
-        echo json_encode(["Erro" => "Não foi possivel cadastrar o Produto!"]);
-    }
+    
                 
     mysqli_close($con);
         
