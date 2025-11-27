@@ -11,6 +11,7 @@ CREATE TABLE Funcionario (
      Email varchar(50) NOT NULL UNIQUE,
      Senha varchar(20) NOT NULL,
      Telefone varchar(20) NOT NULL,
+     Cargo varchar(55) NOT NULL,
      PRIMARY KEY(Id_f));
 
 /////////////////////////
@@ -20,6 +21,7 @@ CREATE TABLE Produto (
      Nome varchar(45) NOT NULL,
      Valor_Custo FLOAT NOT NULL,
      Valor_Venda FLOAT NOT NULL,
+     Quantidade int(11) NOT NULL,
      PRIMARY KEY(Id_p));
 
 //////////////////////////
