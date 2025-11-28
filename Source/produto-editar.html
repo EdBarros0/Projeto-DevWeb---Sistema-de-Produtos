@@ -10,7 +10,6 @@
       #top-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; }
       .div-tab { display: flex; justify-content: center; align-items: center; }
       
-      /* Estilo do Card Centralizado */
       .form-container {
         max-width: 50rem; 
         background-color: rgba(0, 0, 0, 0.05); 
@@ -101,28 +100,23 @@
         document.getElementById("home2").onclick = irHome;
         document.getElementById("home3").onclick = irHome;
 
-        // --- 2. ELEMENTOS DA TELA ---
         const alerta = document.getElementById('alertaSistema');
         const btnSalvar = document.getElementById('btnSalvar');
         const btnExcluir = document.getElementById('btnExcluir');
         
-        // --- 3. CARREGAR DADOS AO ABRIR ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Pega o ID que veio na URL (ex: produto-editar.html?id=5)
+  
             const params = new URLSearchParams(window.location.search);
             const idNaUrl = params.get('id');
 
             if (idNaUrl) {
-                // Preenche o campo ID
                 document.getElementById('ProdID').value = idNaUrl;
-                // Busca os dados no banco
                 carregarProduto(idNaUrl);
             } else {
                 mostrarAlerta("Nenhum ID de produto informado.", "danger");
             }
         });
 
-        // Busca os dados no PHP e preenche os campos
         function carregarProduto(id) {
             fetch(`Data/buscaId.php?id=${id}`)
             .then(res => res.json())
@@ -130,7 +124,6 @@
                 if(produto.Erro) {
                     mostrarAlerta(produto.Erro, "warning");
                 } else {
-                    // Preenche os campos automaticamente
                     document.getElementById('ProdNome').value = produto.Nome;
                     document.getElementById('ProdCusto').value = produto.Valor_Custo;
                     document.getElementById('ProdVenda').value = produto.Valor_Venda;
@@ -140,23 +133,19 @@
             .catch(erro => console.error("Erro ao carregar:", erro));
         }
 
-        // --- 4. FUNÇÃO SALVAR (EDITAR) ---
         btnSalvar.onclick = function() {
             enviarDados('Data/editaProduto.php', 'editar');
         };
 
-        // --- 5. FUNÇÃO EXCLUIR ---
         btnExcluir.onclick = function() {
             if(confirm("ATENÇÃO: Tem certeza que deseja excluir este produto?")) {
                 enviarDados('Data/excluiProduto.php', 'excluir');
             }
         };
 
-        // --- 6. FUNÇÃO GENÉRICA DE ENVIO (AJAX) ---
         function enviarDados(url, acao) {
             alerta.classList.add('d-none');
             
-            // Pega os valores dos campos
             const id = document.getElementById('ProdID').value;
             const nome = document.getElementById('ProdNome').value;
             const custo = document.getElementById('ProdCusto').value;
@@ -165,26 +154,22 @@
 
             let dados = new FormData();
             dados.append('Id_p', id);
-            dados.append('Nome', nome); // Importante para o Excluir
+            dados.append('Nome', nome);
             dados.append('Valor_Custo', custo);
             dados.append('Valor_Venda', venda);
             dados.append('Quantidade', quant);
 
-            // Envia para o servidor
             fetch(url, { method: 'POST', body: dados })
             .then(res => res.json())
             .then(resposta => {
                 if (resposta.Sucesso || resposta.mensagem) {
-                    // Deu certo
                     mostrarAlerta(resposta.Sucesso || resposta.mensagem, "success");
                     
                     if(acao === 'excluir') {
-                        // Se excluiu, limpa a tela e espera 2s para voltar pra home
                         document.getElementById('formGerenciar').reset();
                         setTimeout(() => { location.href = "home.html"; }, 2000);
                     }
                 } else {
-                    // Deu erro no PHP
                     mostrarAlerta(resposta.Erro || "Erro ao processar.", "danger");
                 }
             })
@@ -194,7 +179,6 @@
             });
         }
 
-        // Função auxiliar para mostrar o alerta colorido
         function mostrarAlerta(texto, tipo) {
             alerta.className = `alert alert-${tipo}`;
             alerta.innerText = texto;

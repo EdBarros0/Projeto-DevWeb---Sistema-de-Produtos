@@ -66,43 +66,36 @@
     </div>
 
     <script>
-      
+
         const irHome = () => location.href = "home.html";
         document.getElementById("home1").onclick = irHome;
         document.getElementById("home2").onclick = irHome;
         document.getElementById("home3").onclick = irHome;
 
-        // --- LÓGICA DO CADASTRO ---
         const formCadastro = document.getElementById('formCadastro');
         const btnCadastrar = document.getElementById('btnCadastrar');
         const alerta = document.getElementById('alertaSistema');
 
-        // IMPORTANTE: Se o arquivo estiver na pasta Data, mantenha 'Data/insereProduto.php'
         const URL_PHP = 'Data/insereProduto.php'; 
 
         formCadastro.addEventListener('submit', function(e) {
-            e.preventDefault(); // Não recarrega a página
+            e.preventDefault();
 
-            // Feedback visual de carregamento
             btnCadastrar.disabled = true;
             btnCadastrar.innerText = "Salvando...";
-            alerta.classList.add('d-none'); // Esconde alerta antigo
+            alerta.classList.add('d-none');
 
-            // 1. Pega os dados dos inputs
             const nome = document.getElementById('ProdNome').value;
             const custo = document.getElementById('ProdCusto').value;
             const venda = document.getElementById('ProdVenda').value;
             const quant = document.getElementById('ProdQuant').value;
 
-            // 2. Cria o envelope (FormData)
-            // As chaves ('Nome', 'Valor_Custo') devem ser IGUAIS ao que está no seu PHP ($_POST)
             let dados = new FormData();
             dados.append('Nome', nome);
             dados.append('Valor_Custo', custo);
             dados.append('Valor_Venda', venda);
             dados.append('Quantidade', quant);
 
-            // 3. Envia para o PHP
             fetch(URL_PHP, {
                 method: 'POST',
                 body: dados
@@ -113,13 +106,11 @@
                 btnCadastrar.innerText = "Cadastrar";
 
                 if (resposta.mensagem) {
-                    // SUCESSO
                     alerta.className = 'alert alert-success';
                     alerta.innerText = resposta.mensagem;
                     alerta.classList.remove('d-none');
-                    formCadastro.reset(); // Limpa os campos
+                    formCadastro.reset();
                 } else {
-                    // ERRO (Do PHP ou Validação)
                     alerta.className = 'alert alert-danger';
                     alerta.innerText = resposta.erro || resposta.Erro || "Erro desconhecido.";
                     alerta.classList.remove('d-none');

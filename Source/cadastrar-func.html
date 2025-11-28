@@ -68,13 +68,10 @@
         document.getElementById("home1").onclick = irHome;
         document.getElementById("home2").onclick = irHome;
         document.getElementById("home3").onclick = irHome;
-
-        // --- LÓGICA DO AJAX ---
         const formFuncionario = document.getElementById('formFuncionario');
         const btnCadastrar = document.getElementById('btnCadastrar');
         const alerta = document.getElementById('alertaSistema');
 
-        // IMPORTANTE: Verifica se o arquivo está na pasta Data
         const URL_PHP = 'Data/insereFuncionario.php'; 
 
         formFuncionario.addEventListener('submit', function(e) {
@@ -84,7 +81,6 @@
             btnCadastrar.innerText = "Salvando...";
             alerta.classList.add('d-none');
 
-            // 1. Mapeamento (HTML ID -> PHP Name)
             let dados = new FormData();
             dados.append('Nome', document.getElementById('FuncName').value);
             dados.append('Email', document.getElementById('InputEmail1').value);
@@ -92,7 +88,6 @@
             dados.append('Telefone', document.getElementById('FuncTel').value);
             dados.append('Cargo', document.getElementById('FuncCargo').value);
 
-            // 2. Envio
             fetch(URL_PHP, {
                 method: 'POST',
                 body: dados
@@ -103,13 +98,11 @@
                 btnCadastrar.innerText = "Cadastrar";
 
                 if (resposta.mensagem) {
-                    // SUCESSO
                     alerta.className = 'alert alert-success';
                     alerta.innerText = resposta.mensagem;
                     alerta.classList.remove('d-none');
                     formFuncionario.reset();
                 } else {
-                    // ERRO
                     alerta.className = 'alert alert-danger';
                     alerta.innerText = resposta.erro || resposta.Erro || "Erro desconhecido";
                     alerta.classList.remove('d-none');

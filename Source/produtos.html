@@ -11,11 +11,9 @@
       #top-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; }
       .div-tab { display: flex; justify-content: center; align-items: center; }
 
-      /* Estilo para os cards de resultado */
       .card-produto { transition: all 0.3s ease; cursor: pointer; }
       .card-produto:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transform: translateY(-5px); }
-      
-      /* Ajuste visual da busca */
+
       .search-container { max-width: 800px; margin: 2rem auto; padding: 0 15px; }
     </style>
 
@@ -77,8 +75,6 @@
     document.getElementById("home3").onclick = function () {
             location.href = "home.html";
     };
-
-        // --- SCRIPT DO AJAX DE BUSCA ---
         
         const campoBusca = document.getElementById('campoBusca');
         const divResultados = document.getElementById('resultadoBusca');
@@ -89,9 +85,6 @@
             
             divLoading.classList.remove('d-none');
 
-            // --- O TRUQUE ESTÁ AQUI ---
-            // Se o usuário não digitou nada (vazio), enviamos '%' para o PHP.
-            // O PHP aceita '%' como não-vazio, e o banco entende como "trazer tudo".
             let valorParaEnviar = termoDigitado === '' ? '%' : termoDigitado;
 
             let formData = new FormData();
@@ -107,7 +100,6 @@
                 divResultados.innerHTML = ''; 
 
                 if (dados.Erro) {
-                    // Se der erro, só mostramos se NÃO for o carregamento inicial (o '%' raramente dá erro de "não encontrado" a menos que o banco esteja vazio)
                     divResultados.innerHTML = `<div class="alert alert-warning col-12 text-center">${dados.Erro}</div>`;
                     return;
                 }
@@ -141,13 +133,11 @@
             });
         }
 
-        // 1. Ao carregar a página, chama a função passando vazio
-        // O código acima vai transformar esse vazio em '%'
         document.addEventListener('DOMContentLoaded', () => {
             buscarProdutos(''); 
         });
 
-        // 2. Ao digitar
+
         campoBusca.addEventListener('keyup', function() {
             let termo = campoBusca.value.trim();
             buscarProdutos(termo);

@@ -10,7 +10,6 @@
       #div-top { padding: 0.5rem 1rem 0 1rem; background-color:#fff; border-bottom: 1px solid #ddd; }
       #top-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; }
       
-      /* Centraliza o card de login na tela */
       .login-container {
         max-width: 400px;
         margin: 5rem auto;
@@ -60,48 +59,41 @@
         const alertaErro = document.getElementById('alertaErro');
         const btnEntrar = document.getElementById('btnEntrar');
 
-        // IMPORTANTE: Ajuste o caminho se o login.php estiver dentro da pasta Data/
-        // Exemplo: 'Data/login.php' ou apenas 'login.php' se estiverem juntos.
         const URL_LOGIN = 'Data/login.php'; 
 
         formLogin.addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede a página de recarregar
+            event.preventDefault();
 
-            // 1. Pega os valores
+            
             let email = document.getElementById('inputEmail').value;
             let senha = document.getElementById('inputSenha').value;
 
-            // 2. Cria o envelope de dados (FormData)
+          
             let dados = new FormData();
-            // ATENÇÃO: A chave deve ser igual ao $_POST['Email'] do PHP (Maiúsculo)
+
             dados.append('Email', email); 
             dados.append('Senha', senha);
 
-            // Muda botão para "Carregando..."
             let textoOriginal = btnEntrar.innerText;
             btnEntrar.innerText = "Verificando...";
             btnEntrar.disabled = true;
-            alertaErro.classList.add('d-none'); // Esconde erro anterior
+            alertaErro.classList.add('d-none');
 
-            // 3. Envia para o PHP
+ 
             fetch(URL_LOGIN, {
                 method: 'POST',
                 body: dados
             })
-            .then(response => response.json()) // Espera JSON do PHP
+            .then(response => response.json())
             .then(resposta => {
                 
-                // Restaura o botão
                 btnEntrar.innerText = textoOriginal;
                 btnEntrar.disabled = false;
 
-                // 4. Verifica a resposta
-                // Seu PHP retorna "mensagem" se der certo
+
                 if (resposta.mensagem) {
-                    // Login Sucesso: Redireciona para a Home
                     window.location.href = "home.html";
                 } 
-                // Seu PHP retorna "erro" ou "Erro" se der errado
                 else if (resposta.erro || resposta.Erro) {
                     alertaErro.innerText = resposta.erro || resposta.Erro;
                     alertaErro.classList.remove('d-none');
