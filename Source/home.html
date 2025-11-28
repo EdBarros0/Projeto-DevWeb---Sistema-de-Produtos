@@ -27,7 +27,7 @@
         align-items: center;
       }
 
-        #card1:hover {
+      #card1:hover {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         transform: translateY(-5px);
         transition: all 0.3s ease;
@@ -62,33 +62,38 @@
       </div>
     </nav>
 
-    <div class="container mt-4" style=" max-width: 25rem; background-color: rgba(0, 0, 0, 0.09); border-radius: 10px; padding: 20px 50px;">
-        <form>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Endereço de Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-  
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordHelp">
-                <div id="passwordHelp" class="form-text">Nunca compartilhe sua Senha com ninguem.</div>
-            </div>
-            <button type="submit" class="btn btn-primary">Entrar</button>
-        </form>
+  <div class="row row-cols-1 row-cols-md-2 g-4 my-3 mx-5" style=" cursor: pointer;">
+    <div class="col">
+      <div class="card" id="card1">
+        <img src="models/phone.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Lista de Produtos</h5>
+          <p class="card-text">Listagem e busca de produtos.</p>
+        </div>
+      </div>
     </div>
-<script>
-    document.getElementById("home1").onclick = function () {
-        location.href = "index.html";
-    };
-    document.getElementById("home2").onclick = function () {
-        location.href = "index.html";
-    };
-    document.getElementById("home3").onclick = function () {
-            location.href = "index.html";
-    };
-
-</script>
+    <div class="col" id="card2">
+      <div class="card">
+        <img src="models/armazem.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Cadastro</h5>
+          <p class="card-text">Cadastro de produtos e novos usuarios.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+      document.getElementById("card1").onclick = function () {
+        location.href = "produtos.html";
+      };
+      document.getElementById("card2").onclick = function () {
+        location.href = "cadastro.html";
+      };
+    const irHome = () => location.href = "home.html";
+    document.getElementById("home1").onclick = irHome;
+    document.getElementById("home2").onclick = irHome;
+    document.getElementById("home3").onclick = irHome;
+  </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>

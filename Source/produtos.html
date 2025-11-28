@@ -3,43 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Home - Produtos</title>
+    
     <style>
-      #nav-top {
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-      }
-      #div-top {
-        padding: 0.5rem 1rem 0 1rem;
-        background-color:#f8f9fa;
-      }
-      #top-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        margin: 0;
-      }
-      .div-tab {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+      #nav-top { display: flex; flex-direction: column; padding: 0; }
+      #div-top { padding: 0.5rem 1rem 0 1rem; background-color:#f8f9fa; }
+      #top-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; }
+      .div-tab { display: flex; justify-content: center; align-items: center; }
 
-        #card1:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transform: translateY(-5px);
-        transition: all 0.3s ease;
-      }
-      #card2:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transform: translateY(-5px);
-        transition: all 0.3s ease;
-      }
+      /* Estilo para os cards de resultado */
+      .card-produto { transition: all 0.3s ease; cursor: pointer; }
+      .card-produto:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transform: translateY(-5px); }
+      
+      /* Ajuste visual da busca */
+      .search-container { max-width: 800px; margin: 2rem auto; padding: 0 15px; }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
+  
   <body>
     <nav class="navbar bg-body-tertiary" id="nav-top">
       <div class="container-fluid" id="div-top">
@@ -51,8 +33,7 @@
           </svg>
         </a>
       </div>
-      <div id="div-tab">
-        <ul class="nav justify-content-center">
+      <div id="div-tab" class="div-tab"> <ul class="nav justify-content-center">
           <li class="nav-item">
             <span id="home3" style="cursor: pointer;">
               <a class="nav-link disabled" aria-disabled="true">HOME</a>
@@ -62,20 +43,121 @@
       </div>
     </nav>
 
-<script>
-  document.getElementById("home1").onclick = function () {
-        location.href = "index.html";
-  };
-  document.getElementById("home2").onclick = function () {
-        location.href = "index.html";
-  };
-  document.getElementById("home3").onclick = function () {
-        location.href = "index.html";
-  };
+    <div class="container search-container">
+        
+        <div class="input-group input-group-lg mb-4">
+            <span class="input-group-text bg-white border-end-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </span>
+            <input type="text" id="campoBusca" class="form-control border-start-0" placeholder="Pesquisar produto pelo nome..." autocomplete="off">
+        </div>
 
-</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+        <div id="loading" class="text-center d-none mb-3">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+
+        <div id="resultadoBusca" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col-12 text-center text-muted mt-5">
+                 <p>Comece a digitar para buscar produtos.</p>
+             </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById("home1").onclick = function () {
+        location.href = "home.html";
+    };
+    document.getElementById("home2").onclick = function () {
+        location.href = "home.html";
+    };
+    document.getElementById("home3").onclick = function () {
+            location.href = "home.html";
+    };
+
+        // --- SCRIPT DO AJAX DE BUSCA ---
+        
+        const campoBusca = document.getElementById('campoBusca');
+        const divResultados = document.getElementById('resultadoBusca');
+        const divLoading = document.getElementById('loading');
+        const URL_PHP = 'Data/consultaProduto.php'; 
+
+        function buscarProdutos(termoDigitado) {
+            
+            divLoading.classList.remove('d-none');
+
+            // --- O TRUQUE ESTÁ AQUI ---
+            // Se o usuário não digitou nada (vazio), enviamos '%' para o PHP.
+            // O PHP aceita '%' como não-vazio, e o banco entende como "trazer tudo".
+            let valorParaEnviar = termoDigitado === '' ? '%' : termoDigitado;
+
+            let formData = new FormData();
+            formData.append('Nome', valorParaEnviar);
+
+            fetch(URL_PHP, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(dados => {
+                divLoading.classList.add('d-none');
+                divResultados.innerHTML = ''; 
+
+                if (dados.Erro) {
+                    // Se der erro, só mostramos se NÃO for o carregamento inicial (o '%' raramente dá erro de "não encontrado" a menos que o banco esteja vazio)
+                    divResultados.innerHTML = `<div class="alert alert-warning col-12 text-center">${dados.Erro}</div>`;
+                    return;
+                }
+
+                if (Array.isArray(dados)) {
+                    dados.forEach(produto => {
+                        let preco = parseFloat(produto.Valor_Venda).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                        
+                        let htmlCard = `
+                          <div class="col">
+                              <div class="card h-100 card-produto">
+                                  <div class="card-body">
+                                      <h5 class="card-title text-primary">${produto.Nome}</h5>
+                                      <p class="card-text text-muted mb-1">ID: ${produto.Id_p}</p>
+                                      <h4 class="card-text fw-bold text-success">${preco}</h4>
+                                      <div class="d-flex justify-content-between align-items-center mt-3">
+                                          <span class="badge bg-secondary">Estoque: ${produto.Quantidade}</span>
+                                          <button onclick="irParaEdicao(${produto.Id_p})" class="btn btn-sm btn-outline-primary">Editar / Excluir</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        `;
+                        divResultados.innerHTML += htmlCard;
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                divLoading.classList.add('d-none');
+            });
+        }
+
+        // 1. Ao carregar a página, chama a função passando vazio
+        // O código acima vai transformar esse vazio em '%'
+        document.addEventListener('DOMContentLoaded', () => {
+            buscarProdutos(''); 
+        });
+
+        // 2. Ao digitar
+        campoBusca.addEventListener('keyup', function() {
+            let termo = campoBusca.value.trim();
+            buscarProdutos(termo);
+        });
+        
+        function irParaEdicao(id) {
+    		window.location.href = `produto-editar.html?id=${id}`;
+		}
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

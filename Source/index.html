@@ -3,104 +3,120 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Login - NEXO</title>
     <style>
-      #nav-top {
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-      }
-      #div-top {
-        padding: 0.5rem 1rem 0 1rem;
-        background-color:#f8f9fa;
-      }
-      #top-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        margin: 0;
-      }
-      .div-tab {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #card1:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transform: translateY(-5px);
-        transition: all 0.3s ease;
-      }
-      #card2:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transform: translateY(-5px);
-        transition: all 0.3s ease;
+      body { background-color: #f8f9fa; }
+      #nav-top { display: flex; flex-direction: column; padding: 0; }
+      #div-top { padding: 0.5rem 1rem 0 1rem; background-color:#fff; border-bottom: 1px solid #ddd; }
+      #top-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; }
+      
+      /* Centraliza o card de login na tela */
+      .login-container {
+        max-width: 400px;
+        margin: 5rem auto;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 40px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
+  
   <body>
-    <nav class="navbar bg-body-tertiary" id="nav-top">
+    <nav class="navbar" id="nav-top">
       <div class="container-fluid" id="div-top">
         <a class="navbar-brand" href="#" id="top-bar">
-          <img src="models/logo-NEXO-NoBG.svg" id="home1" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
-          <span class="navbar-brand mb-0 h1" style="font-size: 2rem; font-weight: 600;" id="home2">NEXO</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box2-fill" viewBox="0 0 16 16">
-            <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4zM15 4.667V5H1v-.333L1.5 4h6V1h1v3h6z"/>
-          </svg>
+          <img src="models/logo-NEXO-NoBG.svg" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+          <span class="navbar-brand mb-0 h1" style="font-size: 2rem; font-weight: 600;">NEXO</span>
         </a>
-      </div>
-      <div id="div-tab">
-        <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <span id="home3" style="cursor: pointer;">
-              <a class="nav-link disabled" aria-disabled="true">HOME</a>
-            </span>
-          </li>
-        </ul>
       </div>
     </nav>
 
-  <div class="row row-cols-1 row-cols-md-2 g-4 my-3 mx-5" style=" cursor: pointer;">
-    <div class="col">
-      <div class="card" id="card1">
-        <img src="models/phone.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Lista de Produtos</h5>
-          <p class="card-text">Listagem e busca de produtos.</p>
-        </div>
-      </div>
+    <div class="container login-container">
+        <h3 class="text-center mb-4">Acesso ao Sistema</h3>
+        
+        <div id="alertaErro" class="alert alert-danger d-none" role="alert"></div>
+
+        <form id="formLogin">
+            <div class="mb-3">
+                <label for="inputEmail" class="form-label">Endereço de Email</label>
+                <input type="email" class="form-control" id="inputEmail" required>
+            </div>
+            <div class="mb-3">
+                <label for="inputSenha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="inputSenha" required>
+                <div class="form-text">Nunca compartilhe sua senha com ninguém.</div>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg" id="btnEntrar">Entrar</button>
+            </div>
+        </form>
     </div>
-    <div class="col" id="card2">
-      <div class="card">
-        <img src="models/armazem.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Cadastro</h5>
-          <p class="card-text">Cadastro de produtos e novos usuarios.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-      document.getElementById("card1").onclick = function () {
-        location.href = "produtos.html";
-      };
-      document.getElementById("card2").onclick = function () {
-        location.href = "cadastro.html";
-      };
-      document.getElementById("home1").onclick = function () {
-        location.href = "index.html";
-      };
-      document.getElementById("home2").onclick = function () {
-        location.href = "index.html";
-      };
-      document.getElementById("home3").onclick = function () {
-            location.href = "index.html";
-      };
-  </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
+    <script>
+        const formLogin = document.getElementById('formLogin');
+        const alertaErro = document.getElementById('alertaErro');
+        const btnEntrar = document.getElementById('btnEntrar');
+
+        // IMPORTANTE: Ajuste o caminho se o login.php estiver dentro da pasta Data/
+        // Exemplo: 'Data/login.php' ou apenas 'login.php' se estiverem juntos.
+        const URL_LOGIN = 'Data/login.php'; 
+
+        formLogin.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede a página de recarregar
+
+            // 1. Pega os valores
+            let email = document.getElementById('inputEmail').value;
+            let senha = document.getElementById('inputSenha').value;
+
+            // 2. Cria o envelope de dados (FormData)
+            let dados = new FormData();
+            // ATENÇÃO: A chave deve ser igual ao $_POST['Email'] do PHP (Maiúsculo)
+            dados.append('Email', email); 
+            dados.append('Senha', senha);
+
+            // Muda botão para "Carregando..."
+            let textoOriginal = btnEntrar.innerText;
+            btnEntrar.innerText = "Verificando...";
+            btnEntrar.disabled = true;
+            alertaErro.classList.add('d-none'); // Esconde erro anterior
+
+            // 3. Envia para o PHP
+            fetch(URL_LOGIN, {
+                method: 'POST',
+                body: dados
+            })
+            .then(response => response.json()) // Espera JSON do PHP
+            .then(resposta => {
+                
+                // Restaura o botão
+                btnEntrar.innerText = textoOriginal;
+                btnEntrar.disabled = false;
+
+                // 4. Verifica a resposta
+                // Seu PHP retorna "mensagem" se der certo
+                if (resposta.mensagem) {
+                    // Login Sucesso: Redireciona para a Home
+                    window.location.href = "home.html";
+                } 
+                // Seu PHP retorna "erro" ou "Erro" se der errado
+                else if (resposta.erro || resposta.Erro) {
+                    alertaErro.innerText = resposta.erro || resposta.Erro;
+                    alertaErro.classList.remove('d-none');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                btnEntrar.innerText = textoOriginal;
+                btnEntrar.disabled = false;
+                alertaErro.innerText = "Erro ao conectar com o servidor.";
+                alertaErro.classList.remove('d-none');
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

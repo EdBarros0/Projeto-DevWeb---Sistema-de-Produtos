@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gerenciar Produto - NEXO</title>
+    <style>
+      #nav-top { display: flex; flex-direction: column; padding: 0; }
+      #div-top { padding: 0.5rem 1rem 0 1rem; background-color:#f8f9fa; }
+      #top-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; }
+      .div-tab { display: flex; justify-content: center; align-items: center; }
+      
+      /* Estilo do Card Centralizado */
+      .form-container {
+        max-width: 50rem; 
+        background-color: rgba(0, 0, 0, 0.05); 
+        border-radius: 10px; 
+        padding: 30px;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <nav class="navbar bg-body-tertiary" id="nav-top">
+      <div class="container-fluid" id="div-top">
+        <a class="navbar-brand" href="#" id="top-bar">
+          <img src="models/logo-NEXO-NoBG.svg" id="home1" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+          <span class="navbar-brand mb-0 h1" style="font-size: 2rem; font-weight: 600;" id="home2">NEXO</span>
+           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box2-fill" viewBox="0 0 16 16">
+            <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4zM15 4.667V5H1v-.333L1.5 4h6V1h1v3h6z"/>
+          </svg>
+        </a>
+      </div>
+      <div id="div-tab" class="div-tab">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <span id="home3" style="cursor: pointer;">
+                <a class="nav-link disabled" aria-disabled="true">HOME</a>
+              </span>
+            </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container form-container">
+        <h3 class="mb-4 text-center text-primary">Editar Produto</h3>
+        
+        <div id="alertaSistema" class="alert d-none" role="alert"></div>
+
+        <form id="formGerenciar">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label for="ProdID" class="form-label fw-bold">ID</label>
+                    <input type="number" class="form-control bg-white" id="ProdID" readonly>
+                </div>
+                <div class="col-md-9 mb-3">
+                    <label for="ProdNome" class="form-label fw-bold">Nome do Produto</label>
+                    <input type="text" class="form-control" id="ProdNome" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="ProdCusto" class="form-label">Custo (R$)</label>
+                    <input type="number" step="0.01" class="form-control" id="ProdCusto">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="ProdVenda" class="form-label">Venda (R$)</label>
+                    <input type="number" step="0.01" class="form-control" id="ProdVenda">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="ProdQuant" class="form-label">Quantidade (Un)</label>
+                    <input type="number" class="form-control" id="ProdQuant">
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-danger" id="btnExcluir">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                    </svg>
+                    Excluir Produto
+                </button>
+                
+                <button type="button" class="btn btn-primary px-5" id="btnSalvar">
+                    Salvar Alterações
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const irHome = () => location.href = "home.html";
+        document.getElementById("home1").onclick = irHome;
+        document.getElementById("home2").onclick = irHome;
+        document.getElementById("home3").onclick = irHome;
+
+        // --- 2. ELEMENTOS DA TELA ---
+        const alerta = document.getElementById('alertaSistema');
+        const btnSalvar = document.getElementById('btnSalvar');
+        const btnExcluir = document.getElementById('btnExcluir');
+        
+        // --- 3. CARREGAR DADOS AO ABRIR ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pega o ID que veio na URL (ex: produto-editar.html?id=5)
+            const params = new URLSearchParams(window.location.search);
+            const idNaUrl = params.get('id');
+
+            if (idNaUrl) {
+                // Preenche o campo ID
+                document.getElementById('ProdID').value = idNaUrl;
+                // Busca os dados no banco
+                carregarProduto(idNaUrl);
+            } else {
+                mostrarAlerta("Nenhum ID de produto informado.", "danger");
+            }
+        });
+
+        // Busca os dados no PHP e preenche os campos
+        function carregarProduto(id) {
+            fetch(`Data/buscaId.php?id=${id}`)
+            .then(res => res.json())
+            .then(produto => {
+                if(produto.Erro) {
+                    mostrarAlerta(produto.Erro, "warning");
+                } else {
+                    // Preenche os campos automaticamente
+                    document.getElementById('ProdNome').value = produto.Nome;
+                    document.getElementById('ProdCusto').value = produto.Valor_Custo;
+                    document.getElementById('ProdVenda').value = produto.Valor_Venda;
+                    document.getElementById('ProdQuant').value = produto.Quantidade;
+                }
+            })
+            .catch(erro => console.error("Erro ao carregar:", erro));
+        }
+
+        // --- 4. FUNÇÃO SALVAR (EDITAR) ---
+        btnSalvar.onclick = function() {
+            enviarDados('Data/editaProduto.php', 'editar');
+        };
+
+        // --- 5. FUNÇÃO EXCLUIR ---
+        btnExcluir.onclick = function() {
+            if(confirm("ATENÇÃO: Tem certeza que deseja excluir este produto?")) {
+                enviarDados('Data/excluiProduto.php', 'excluir');
+            }
+        };
+
+        // --- 6. FUNÇÃO GENÉRICA DE ENVIO (AJAX) ---
+        function enviarDados(url, acao) {
+            alerta.classList.add('d-none');
+            
+            // Pega os valores dos campos
+            const id = document.getElementById('ProdID').value;
+            const nome = document.getElementById('ProdNome').value;
+            const custo = document.getElementById('ProdCusto').value;
+            const venda = document.getElementById('ProdVenda').value;
+            const quant = document.getElementById('ProdQuant').value;
+
+            let dados = new FormData();
+            dados.append('Id_p', id);
+            dados.append('Nome', nome); // Importante para o Excluir
+            dados.append('Valor_Custo', custo);
+            dados.append('Valor_Venda', venda);
+            dados.append('Quantidade', quant);
+
+            // Envia para o servidor
+            fetch(url, { method: 'POST', body: dados })
+            .then(res => res.json())
+            .then(resposta => {
+                if (resposta.Sucesso || resposta.mensagem) {
+                    // Deu certo
+                    mostrarAlerta(resposta.Sucesso || resposta.mensagem, "success");
+                    
+                    if(acao === 'excluir') {
+                        // Se excluiu, limpa a tela e espera 2s para voltar pra home
+                        document.getElementById('formGerenciar').reset();
+                        setTimeout(() => { location.href = "home.html"; }, 2000);
+                    }
+                } else {
+                    // Deu erro no PHP
+                    mostrarAlerta(resposta.Erro || "Erro ao processar.", "danger");
+                }
+            })
+            .catch(erro => {
+                console.error(erro);
+                mostrarAlerta("Erro de conexão com o servidor.", "danger");
+            });
+        }
+
+        // Função auxiliar para mostrar o alerta colorido
+        function mostrarAlerta(texto, tipo) {
+            alerta.className = `alert alert-${tipo}`;
+            alerta.innerText = texto;
+            alerta.classList.remove('d-none');
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html> 
